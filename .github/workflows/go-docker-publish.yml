@@ -2,9 +2,6 @@ name: "Go Test, Lint, and Docker Publish"
 
 on:
   workflow_call:
-    secrets:
-      ACCESS_TOKEN:
-        required: true
 
 jobs:
   test-and-lint:
