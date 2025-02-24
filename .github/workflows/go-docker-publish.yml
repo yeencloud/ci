@@ -26,11 +26,8 @@ jobs:
         with:
           string: ${{ github.repository_owner }}
 
-      - name: Configure Git to authenticate using GitHub token
-        run: |
-          git config --global url."https://$GITHUB_TOKEN:@github.com/".insteadOf "https://github.com/"
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+      - name: Authenticate to GitHub
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
       - name: Set up Go (latest 1.x)
         uses: actions/setup-go@v3
