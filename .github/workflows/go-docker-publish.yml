@@ -26,8 +26,10 @@ jobs:
         with:
           string: ${{ github.repository_owner }}
 
-      - name: Authenticate to GitHub
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+      - name: Configure git to use SSH instead of HTTPS
+        run: |
+          git config --global url."ssh://git@github.com/".insteadOf "https://github.com/"
+        
 
       - name: Set up Go (latest 1.x)
         uses: actions/setup-go@v3
