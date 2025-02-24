@@ -38,6 +38,9 @@ jobs:
 
       - name: Run go mod tidy
         run: go mod tidy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GOPRIVATE: github.com/${{ steps.org_lowercase.outputs.lowercase }}/*
 
       - name: Lint and Test
         uses: AliceDiNunno/action-go-test-and-lint@v0.3.7
