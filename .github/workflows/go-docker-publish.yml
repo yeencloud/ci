@@ -27,10 +27,9 @@ jobs:
 
       - name: Authenticate Git for private modules
         run: |
-          echo "Configuring git for private modules..."
-          git config --global url."https://${{ secrets.ACCESS_TOKEN }}@github.com/".insteadOf "https://github.com/"
-          ORG_NAME_LOWER="${{ steps.org_lowercase.outputs.lowercase }}"
-          go env -w GOPRIVATE=github.com/$ORG_NAME_LOWER/*
+      - name: Set up dependency authentication
+        run: |
+          git config --global url."https://${{ secrets.PERSONAL_ACCESS_TOKEN }}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
 
       - name: Set up Go (latest 1.x)
         uses: actions/setup-go@v3
