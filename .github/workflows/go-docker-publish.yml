@@ -29,7 +29,7 @@ jobs:
         run: |
       - name: Set up dependency authentication
         run: |
-          git config --global url."https://${{ secrets.ACCESS_TOKEN }}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
+          git config --global url."https://${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
 
       - name: Set up Go (latest 1.x)
         uses: actions/setup-go@v3
@@ -38,9 +38,6 @@ jobs:
 
       - name: Run go mod tidy
         run: go mod tidy
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GOPRIVATE: github.com/${{ steps.org_lowercase.outputs.lowercase }}/*
 
       - name: Lint and Test
         uses: AliceDiNunno/action-go-test-and-lint@v0.3.7
