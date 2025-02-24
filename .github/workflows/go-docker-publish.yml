@@ -36,6 +36,9 @@ jobs:
         with:
           go-version: "1.x"
 
+      - name: Run go mod tidy
+        run: go mod tidy
+
       - name: Lint and Test
         uses: AliceDiNunno/action-go-test-and-lint@v0.3.7
 
