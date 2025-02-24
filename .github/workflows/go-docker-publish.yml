@@ -29,7 +29,7 @@ jobs:
         run: |
       - name: Set up dependency authentication
         run: |
-          git config --global url."https://${{ secrets.PERSONAL_ACCESS_TOKEN }}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
+          git config --global url."https://${{ secrets.ACCESS_TOKEN }}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
 
       - name: Set up Go (latest 1.x)
         uses: actions/setup-go@v3
