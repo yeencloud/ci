@@ -18,7 +18,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
         with:
-          persist-credentials: false
+          persist-credentials: false  # Keep as false since we're using PAT explicitly
 
       - name: Lowercase org name
         id: org_lowercase
@@ -26,20 +26,20 @@ jobs:
         with:
           string: ${{ github.repository_owner }}
 
-      - name: Configure git to use SSH instead of HTTPS
-        run: |
-          git config --global url."ssh://git@github.com/".insteadOf "https://github.com/"
-        
-
       - name: Set up Go (latest 1.x)
         uses: actions/setup-go@v3
         with:
           go-version: "1.x"
 
+
+      - name: Authenticate Git for private modules
+        run: |
+          git config --global url."https://${{ secrets.ACCESS_TOKEN }}@github.com/".insteadOf "https://github.com/"
+          echo "GOPRIVATE=github.com/yeencloud/*" >> $GITHUB_ENV
+
+
       - name: Run go mod tidy
-        run: go mod tidy
-        env:
-          GOPRIVATE: github.com/yeencloud/*
+        run: go mod tidy -v  # Add -v for verbose output to debug
 
       - name: Lint and Test
         uses: AliceDiNunno/action-go-test-and-lint@v0.3.7
